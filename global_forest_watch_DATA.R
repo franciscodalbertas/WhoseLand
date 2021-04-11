@@ -32,11 +32,11 @@ o_g <- st_read(paste0(path,"Oil_and_Gas_Concessions.shp"))
 
 o_p <- st_read(paste0(path,"Oil_Palm_Concessions.shp"))
 
+
 #### Cambodja concession ########################################################
 
 
 agriCamb <- st_read(paste0(path,"licadho-land-concessions-2020.shp"))
-
 
 #---- selecting common columns -------------------------------------------------
 
@@ -48,9 +48,13 @@ o_p$Concession <- "agriculture"
 
 o_p$Concession <- "oil palm"
 
+
+o_p$Concession <- "oil palm"
+
 o_g$Concession <- "oil and gas"
 
 names(o_g)[8] <- names(o_p)[5]
+
 
 names(agriCamb)[7] <- "company"
 
@@ -68,6 +72,9 @@ common <- intersect(common,names(agriCamb))
 
 
 common <- intersect(names(o_g), names(o_p)) 
+
+
+
 
 #### subset common names #######################################################
 
@@ -101,6 +108,22 @@ world_sf <- sf::st_as_sf(world)
 
 o_g <- st_zm(o_g,drop = TRUE,what = "ZM")
 
+#--- merging data --------------------------------------------------------------
+
+
+summary(st_geometry(o_g))
+
+# multipolygon z doesn't bind well with multipolygon
+# drop z
+
+o_g <- st_zm(o_g,drop = TRUE,what = "ZM")
+
+summary(st_geometry(o_p))
+
+
+
+
+summary(df)
 
 df <- rbind(o_g,o_p)
 
@@ -121,6 +144,7 @@ data("wrld_simpl")
 #world<-ne_countries(scale="large",returnclass="sf")
 world <- map("world", plot=FALSE, fill=TRUE, col="gray") 
 world_sf <- sf::st_as_sf(world)
+
 
 world_map<-ggplot(data=world_sf)+geom_sf(colour=NA,fill="grey80")+
   geom_sf(data=df,aes(fill=Concession),colour = NA)+
