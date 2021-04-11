@@ -8,7 +8,8 @@
 
 # I wasn't able to download mining concessions. Still need to include
 
-# testing to make a change and commiting.
+# testing to make a change and commiting. doint it again! Before commit I have
+# to push! do it again. try again
 
 #---- packages -----------------------------------------------------------------
 
