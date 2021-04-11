@@ -8,6 +8,8 @@
 
 # I wasn't able to download mining concessions. Still need to include
 
+# testing to make a change and commiting.
+
 #---- packages -----------------------------------------------------------------
 
 library(sf)
